@@ -1,0 +1,7 @@
+name: My API Rest
+type: module
+description: Rest Api for your App
+core: 8.x
+package: Rest
+dependencies:
+  - rest
