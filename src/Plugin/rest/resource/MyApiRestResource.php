@@ -92,9 +92,10 @@ class MyApiRestResource extends ResourceBase {
       case 'U':
         $node = Node::load($data['nid']['value']);
         if($node->title->value)$node->set('title',$data['title']['value']);
+        if($node->body->value)$node->set('body',$data['body']['value']);
         if($node->field_monto->value)$node->set('field_monto',$data['monto']['value']);
         if($node->field_fecha->value)$node->set('field_fecha',$data['fecha']['value']);
-        if($node->body->value)$node->set('body',$data['body']['value']);
+        if($node->field_contenido->value)$node->set('field_contenido',$data['contenido']['value']);
         if($node->save()){
             $response = 1;
           }
@@ -111,11 +112,12 @@ class MyApiRestResource extends ResourceBase {
             array(
               'type' => $data['tipo']['value'],
               'title' => $data['title']['value'],
-              'field_monto' => $data['monto']['value'],
-              'field_fecha' => $data['fecha']['value'],
               'body' => [
                 'value' => $data['body']['value']
               ],
+              'field_monto' => $data['monto']['value'],
+              'field_fecha' => $data['fecha']['value'],
+              'field_contenido' => $data['contenido']['value'],
             )
           );
           if($node->save()){
