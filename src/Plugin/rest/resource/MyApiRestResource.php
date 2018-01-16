@@ -14,15 +14,15 @@ use Psr\Log\LoggerInterface;
  * Provides a resource to get view modes by entity and bundle.
  *
  * @RestResource(
- *   id = "feedback_rest_resource",
- *   label = @Translation("Feedback rest resource"),
+ *   id = "my_api_rest_resource",
+ *   label = @Translation("My Api rest resource"),
  *   uri_paths = {
- *     "canonical" = "/wsdl/feedback",
- *     "https://www.drupal.org/link-relations/create" = "/wsdl/feedback"
+ *     "canonical" = "/api/myapi",
+ *     "https://www.drupal.org/link-relations/create" = "/api/myapi"
  *   }
  * )
  */
-class FeedbackRestResource extends ResourceBase {
+class MyApiRestResource extends ResourceBase {
 
   /**
    * A current user instance.
@@ -88,21 +88,42 @@ class FeedbackRestResource extends ResourceBase {
     if (!$this->currentUser->hasPermission('access content')) {
       throw new AccessDeniedHttpException();
     }
-    $node = Node::create(
-      array(
-        'type' => 'feedback',
-        'title' => $data['title']['value'],
-        'field_correo' => [
-          'value' => $data['correo']['value']
-        ],
-        'field_mensaje' => [
-          'value' => $data['consulta']['value']
-        ],
-      )
-    );
-    if($node->save()){
-      $response = 1;
+    switch ($data['action']['value']) {
+      case 'U':
+        $node = Node::load($data['nid']['value']);
+        if($node->title->value)$node->set('title',$data['title']['value']);
+        if($node->field_monto->value)$node->set('field_monto',$data['monto']['value']);
+        if($node->field_fecha->value)$node->set('field_fecha',$data['fecha']['value']);
+        if($node->body->value)$node->set('body',$data['body']['value']);
+        if($node->save()){
+            $response = 1;
+          }
+        break;
+      case 'D':
+        $node = Node::load($data['nid']['value']);
+        if(!$node->delete()){
+            $response = 1;
+          }
+        break;
+
+      default:
+          $node = Node::create(
+            array(
+              'type' => $data['tipo']['value'],
+              'title' => $data['title']['value'],
+              'field_monto' => $data['monto']['value'],
+              'field_fecha' => $data['fecha']['value'],
+              'body' => [
+                'value' => $data['body']['value']
+              ],
+            )
+          );
+          if($node->save()){
+            $response = 1;
+          }
+        break;
     }
+
     return new ResourceResponse($response);
   }
 
