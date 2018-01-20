@@ -120,6 +120,8 @@ class MyApiRestResource extends ResourceBase {
           );
           if($node->save()){
             $response = 1;
+          }else{
+            $response = 0;
           }
         break;
     }
