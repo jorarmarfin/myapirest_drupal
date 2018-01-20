@@ -17,8 +17,8 @@ use Psr\Log\LoggerInterface;
  *   id = "my_api_rest_resource",
  *   label = @Translation("My Api rest resource"),
  *   uri_paths = {
- *     "canonical" = "/api/myapi",
- *     "https://www.drupal.org/link-relations/create" = "/api/myapi"
+ *     "canonical" = "/api/gestion",
+ *     "https://www.drupal.org/link-relations/create" = "/api/gestion"
  *   }
  * )
  */
