@@ -113,6 +113,7 @@ class MyApiRestResource extends ResourceBase {
               'title' => $data['title']['value'],
               'field_monto' => $data['monto']['value'],
               'field_fecha' => $data['fecha']['value'],
+              'field_padre' => $data['padre']['value'],
               'body' => [
                 'value' => $data['body']['value']
               ],
