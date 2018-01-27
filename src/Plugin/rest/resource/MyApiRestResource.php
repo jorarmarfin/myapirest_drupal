@@ -94,6 +94,8 @@ class MyApiRestResource extends ResourceBase {
         if($node->title->value)$node->set('title',$data['title']['value']);
         if($node->field_monto->value)$node->set('field_monto',$data['monto']['value']);
         if($node->field_fecha->value)$node->set('field_fecha',$data['fecha']['value']);
+        if($node->field_padre->value)$node->set('field_padre',$data['sacerdote']['value']);
+
         if($node->body->value)$node->set('body',$data['body']['value']);
         if($node->save()){
             $response = 1;
