@@ -90,7 +90,7 @@ class MyApiRestResource extends ResourceBase {
     }
     switch ($data['action']['value']) {
       case 'U':
-        $node = Node::load($data['nid']['value']);
+        $node = node_load($data['nid']['value']);
         if($node->title->value)$node->set('title',$data['title']['value']);
         if($node->field_monto->value)$node->set('field_monto',$data['monto']['value']);
         if($node->field_fecha->value)$node->set('field_fecha',$data['fecha']['value']);
